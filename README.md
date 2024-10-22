@@ -1,3 +1,68 @@
+# Building and Running a Node.js Application with Docker
+
+This document outlines the steps to create a Docker container for a Node.js application using a Dockerfile.
+
+## 1. Define the Dockerfile
+
+Create a file named `Dockerfile` in the root directory of your Node.js application and add the following content:
+
+```dockerfile
+FROM node:20 AS builder
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+EXPOSE 4173
+
+CMD ["npm", "run", "preview"]
+```
+
+## 2. Build the Docker Image
+
+To build the Docker image, open your terminal and navigate to the directory containing the Dockerfile. Run the following command:
+
+```bash
+docker build -t test .
+```
+
+### Explanation of the Command
+
+- **docker build**: This command builds a Docker image from the Dockerfile
+- **-t test**: This option tags the image with the name "test"
+- **.**: This specifies the build context, which is the current directory
+
+![Docker build](./docs/docker_build.png)
+
+## 3. Run the Docker Container
+
+After building the Docker image, you can run the container using the following command:
+
+```bash
+docker run -p 4173:4173 test
+```
+
+### Explanation of the Command
+
+- **docker run**: This command runs a new container from the specified image
+- **-p 4173:4173**: This option maps port 4173 of the container to port 4173 on your host machine, allowing you to access the application from your browser
+- **test**: This specifies the image to run
+
+![Docker Run](./docs/docker_run.png)
+
+## Accessing the Application
+
+Once the container is running, you can access your Node.js application by navigating to the following URL in your web browser:
+
+`http://localhost:4173`
+
+
 # CI/CD Setup for Node.js Web Project in Jenkins
 
 ## 1. Deploy Jenkins to a Remote Server Using Docker
