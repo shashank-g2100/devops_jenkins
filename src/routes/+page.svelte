@@ -22,7 +22,7 @@
 	</h1>
 
 	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
+    This is demo of Jenkins CI/CD
 	</h2>
 
 	<Counter />
